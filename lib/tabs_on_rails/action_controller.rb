@@ -18,7 +18,7 @@ module TabsOnRails
       helper_method :current_tab, :current_tab?
     end
 
-    
+
     protected
 
     # Sets the value for current tab to given name.
@@ -103,7 +103,7 @@ module TabsOnRails
         options = args.extract_options!
         name, namespace = args
 
-        before_filter(options) do |controller|
+        public_send(respond_to?(:before_action) ? :before_action : :before_filter) do |controller|
           controller.send(:set_tab, name, namespace)
         end
       end
@@ -139,7 +139,7 @@ module TabsOnRails
       #
       # Now, if the action belongs to <tt>DashboardController</tt>,
       # the template will automatically render the following HTML code.
-      # 
+      #
       #   <ul>
       #     <li><a href="/">Homepage</a></li>
       #     <li class="current"><span>Dashboard</span></li>
@@ -167,7 +167,7 @@ module TabsOnRails
       # == Customizing a Tab
       #
       # You can pass a hash of options to customize the style and the behavior of the tab item.
-      # Behind the scenes, each time you create a tab, the <tt>#tab_for</tt> 
+      # Behind the scenes, each time you create a tab, the <tt>#tab_for</tt>
       # method is invoked.
       #
       #   <%= tabs_tag do |tab| %>
@@ -188,7 +188,7 @@ module TabsOnRails
       #
       # == Customizing open_tabs and close_tabs
       #
-      # The open_tabs and the close_tabs methods can be customized 
+      # The open_tabs and the close_tabs methods can be customized
       # with the <tt>:open_tabs</tt> and <tt>:close_tabs</tt> option.
       #
       #   <%= tabs_tag :open_tabs => { :id => "tabs", :class => "cool" } do |tab| %>
